@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Pulse</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="dashboard" aria-labelledby="dashboard-title">
+      <header class="dashboard-header">
+        <div>
+          <h1 id="dashboard-title">Project Pulse</h1>
+          <p>Contributor snapshot of active initiatives and delivery health.</p>
+        </div>
+        <div class="summary-pill">4 active projects</div>
+      </header>
+
+      <section class="project-grid" id="project-grid" aria-live="polite"></section>
+    </main>
+
+    <script>
+      const projectGrid = document.getElementById('project-grid');
+
+      async function loadProjects() {
+        const response = await fetch('project-data.json');
+        const data = await response.json();
+
+        data.projects.forEach((project) => {
+          const card = document.createElement('article');
+          card.className = 'project-card';
+
+          const top = document.createElement('div');
+          top.className = 'card-top';
+
+          const title = document.createElement('h2');
+          title.textContent = project.name;
+
+          const statusBadge = document.createElement('span');
+          statusBadge.className = 'status-badge';
+          statusBadge.dataset.status = project.status;
+          statusBadge.textContent = project.status;
+
+          top.append(title, statusBadge);
+
+          const owner = document.createElement('div');
+          owner.className = 'meta-line';
+          owner.innerHTML = '<span class="meta-label">Owner</span> ' + project.owner;
+
+          const recent = document.createElement('div');
+          recent.className = 'meta-line';
+          recent.innerHTML = '<span class="meta-label">Recent activity</span><br>' + project.recentActivity;
+
+          const priority = document.createElement('div');
+          priority.className = 'meta-line';
+          const priorityBadge = document.createElement('span');
+          priorityBadge.className = 'priority-badge';
+          priorityBadge.dataset.priority = project.priority;
+          priorityBadge.textContent = project.priority;
+          priority.appendChild(priorityBadge);
+
+          card.append(top, owner, recent, priority);
+          projectGrid.appendChild(card);
+        });
+      }
+
+      loadProjects().catch((error) => {
+        console.error('Unable to load project data:', error);
+        projectGrid.innerHTML = '<p>Project data is unavailable.</p>';
+      });
+    </script>
+  </body>
+</html>

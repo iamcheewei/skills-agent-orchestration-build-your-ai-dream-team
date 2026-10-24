@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "name": "Atlas API",
+      "owner": "Alicia Chen",
+      "status": "On track",
+      "recentActivity": "Merged 2 PRs and resolved 3 docs comments this week",
+      "priority": "High"
+    },
+    {
+      "name": "Northstar Portal",
+      "owner": "Mateo Ruiz",
+      "status": "At risk",
+      "recentActivity": "Waiting on QA sign-off for workflow fixes",
+      "priority": "Medium"
+    },
+    {
+      "name": "Signal Studio",
+      "owner": "Priya Nair",
+      "status": "Healthy",
+      "recentActivity": "Published a new onboarding flow and updated analytics",
+      "priority": "Low"
+    },
+    {
+      "name": "Lunar Ops",
+      "owner": "Ethan Brooks",
+      "status": "Blocked",
+      "recentActivity": "Dependency review is pending on the infrastructure patch",
+      "priority": "Critical"
+    }
+  ]
+}
